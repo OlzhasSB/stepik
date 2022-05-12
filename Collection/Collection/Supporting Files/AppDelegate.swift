@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Concentration
+//  Collection
 //
 //  Created by Olzhas Seiilkhanov on 12.05.2022.
 //
