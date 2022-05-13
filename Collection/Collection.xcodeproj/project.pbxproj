@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31A05D0C282E2D140029F5DF /* Concentration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A05D0B282E2D140029F5DF /* Concentration.swift */; };
+		31A05D0E282E2D900029F5DF /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A05D0D282E2D900029F5DF /* Card.swift */; };
 		31D99A92282D1BA20032A082 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D99A91282D1BA20032A082 /* AppDelegate.swift */; };
 		31D99A94282D1BA20032A082 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D99A93282D1BA20032A082 /* SceneDelegate.swift */; };
 		31D99A96282D1BA20032A082 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D99A95282D1BA20032A082 /* ViewController.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		31A05D0B282E2D140029F5DF /* Concentration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Concentration.swift; sourceTree = "<group>"; };
+		31A05D0D282E2D900029F5DF /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		31D99A8E282D1BA20032A082 /* Collection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Collection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31D99A91282D1BA20032A082 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31D99A93282D1BA20032A082 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +64,8 @@
 				31D99A95282D1BA20032A082 /* ViewController.swift */,
 				31D99A97282D1BA20032A082 /* Main.storyboard */,
 				31D99A9F282D1BA20032A082 /* Info.plist */,
+				31A05D0B282E2D140029F5DF /* Concentration.swift */,
+				31A05D0D282E2D900029F5DF /* Card.swift */,
 			);
 			path = Collection;
 			sourceTree = "<group>";
@@ -147,6 +153,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				31D99A96282D1BA20032A082 /* ViewController.swift in Sources */,
+				31A05D0C282E2D140029F5DF /* Concentration.swift in Sources */,
+				31A05D0E282E2D900029F5DF /* Card.swift in Sources */,
 				31D99A92282D1BA20032A082 /* AppDelegate.swift in Sources */,
 				31D99A94282D1BA20032A082 /* SceneDelegate.swift in Sources */,
 			);
@@ -295,6 +303,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25N4978957;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Collection/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -322,6 +331,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25N4978957;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Collection/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
