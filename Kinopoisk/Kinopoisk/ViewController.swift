@@ -12,9 +12,9 @@ class ViewController: UIViewController {
     
     
     var movies: [Movies] = [
-        Movies.init(label: "Sonic the Hedgehog", date: "2021-03-03", image: UIImage.init(named: "sonic.jpeg")),
-        Movies.init(label: "The Batman", date: "2022-03-01", image: UIImage.init(named: "batman.jpeg")),
-        Movies.init(label: "The Avengers", date: "2019-02-03", image: UIImage.init(named: "avengers.jpeg"))
+        Movies.init(label: "Sonic the Hedgehog", date: "2021-03-03", rating: "★8.7", image: UIImage.init(named: "sonic.jpeg")),
+        Movies.init(label: "The Batman", date: "2022-03-01", rating: "★7.5", image: UIImage.init(named: "batman.jpeg")),
+        Movies.init(label: "The Avengers", date: "2019-02-03", rating: "★7.9", image: UIImage.init(named: "avengers.jpeg"))
     ]
     
     override func viewDidLoad() {
@@ -34,6 +34,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.movieDateLabel.text = movies[indexPath.row].date
         cell.movieImageView.image = movies[indexPath.row].image
         cell.movieTitleLable.text = movies[indexPath.row].label
+        cell.movieRating.text = movies[indexPath.row].rating
         
         return cell
     }

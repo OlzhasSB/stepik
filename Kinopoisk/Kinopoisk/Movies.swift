@@ -11,5 +11,6 @@ import UIKit
 struct Movies {
     var label: String?
     var date: String?
+    var rating: String?
     var image: UIImage?
 }
