@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet private var flipCountLabel: UILabel!
     @IBOutlet private var cardButtons: [UIButton]!
     
-    private var emojiChoices = ["👻", "🎩", "☠️", "🦾", "🧶"]
+    private var emojiChoices = ["👻", "🎩", "☠️", "🦾", "🧶", "😁"]
     private var emojiesCache = Dictionary<Card, String>()
     
     @IBAction private func touchCard(_ sender: UIButton) {

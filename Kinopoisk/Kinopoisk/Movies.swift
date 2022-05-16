@@ -1,0 +1,15 @@
+//
+//  Movies.swift
+//  Kinopoisk
+//
+//  Created by Olzhas Seiilkhanov on 16.05.2022.
+//
+
+import Foundation
+import UIKit
+
+struct Movies {
+    var label: String?
+    var date: String?
+    var image: UIImage?
+}
