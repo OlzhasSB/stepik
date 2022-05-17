@@ -9,8 +9,6 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet var myTableView: UITableView!
-    
-    
     var movies: [Movies] = [
         Movies.init(label: "Sonic the Hedgehog", date: "2021-03-03", rating: "★8.7", image: UIImage.init(named: "sonic.jpeg")),
         Movies.init(label: "The Batman", date: "2022-03-01", rating: "★7.5", image: UIImage.init(named: "batman.jpeg")),

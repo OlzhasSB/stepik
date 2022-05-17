@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		312CA847283371D600B84556 /* Cast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CA846283371D600B84556 /* Cast.swift */; };
+		312CA8492833723E00B84556 /* CastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CA8482833723E00B84556 /* CastCell.swift */; };
+		314FA847283365EE00D53B41 /* secondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FA846283365EE00D53B41 /* secondViewController.swift */; };
 		316F6E0D28325AC60002AB08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316F6E0C28325AC60002AB08 /* AppDelegate.swift */; };
 		316F6E0F28325AC60002AB08 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316F6E0E28325AC60002AB08 /* SceneDelegate.swift */; };
 		316F6E1128325AC60002AB08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316F6E1028325AC60002AB08 /* ViewController.swift */; };
@@ -18,6 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		312CA846283371D600B84556 /* Cast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cast.swift; sourceTree = "<group>"; };
+		312CA8482833723E00B84556 /* CastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCell.swift; sourceTree = "<group>"; };
+		314FA846283365EE00D53B41 /* secondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = secondViewController.swift; sourceTree = "<group>"; };
 		316F6E0928325AC60002AB08 /* Kinopoisk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kinopoisk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		316F6E0C28325AC60002AB08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		316F6E0E28325AC60002AB08 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,11 +68,14 @@
 			children = (
 				316F6E2028325AEE0002AB08 /* Supporting Files */,
 				316F6E1028325AC60002AB08 /* ViewController.swift */,
+				314FA846283365EE00D53B41 /* secondViewController.swift */,
 				316F6E1228325AC60002AB08 /* Main.storyboard */,
-				316F6E1528325AC70002AB08 /* Assets.xcassets */,
-				316F6E1A28325AC70002AB08 /* Info.plist */,
 				316F6E21283261480002AB08 /* MovieCell.swift */,
 				316F6E23283262050002AB08 /* Movies.swift */,
+				312CA8482833723E00B84556 /* CastCell.swift */,
+				312CA846283371D600B84556 /* Cast.swift */,
+				316F6E1528325AC70002AB08 /* Assets.xcassets */,
+				316F6E1A28325AC70002AB08 /* Info.plist */,
 			);
 			path = Kinopoisk;
 			sourceTree = "<group>";
@@ -152,10 +161,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				312CA847283371D600B84556 /* Cast.swift in Sources */,
 				316F6E24283262050002AB08 /* Movies.swift in Sources */,
 				316F6E1128325AC60002AB08 /* ViewController.swift in Sources */,
 				316F6E0D28325AC60002AB08 /* AppDelegate.swift in Sources */,
+				312CA8492833723E00B84556 /* CastCell.swift in Sources */,
 				316F6E22283261480002AB08 /* MovieCell.swift in Sources */,
+				314FA847283365EE00D53B41 /* secondViewController.swift in Sources */,
 				316F6E0F28325AC60002AB08 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
