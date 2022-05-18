@@ -17,12 +17,57 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Choose the Movie"
         myTableView.delegate = self
         myTableView.dataSource = self
     }
+    
+//    @IBAction func goToButton(_ sender: UIButton) {
+//        self.performSegue(withIdentifier: "goToCast", sender: self)
+//    }
+//
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let destinationVC = segue.destination as! SecondViewController
+//        destinationVC.actors = [
+//            Cast.init(name: "James Marsden", status: "Acting", image: UIImage(named: "james.jpeg")),
+//            Cast.init(name: "Jim Carrey", status: "Acting", image: UIImage(named: "jim.jpeg")),
+//            Cast.init(name: "Ben Schwartz", status: "Acting", image: UIImage(named: "ben.jpeg")),
+//            Cast.init(name: "Tika Sumpter", status: "Acting", image: UIImage(named: "tika.jpeg")),
+//            Cast.init(name: "Natasha Rothwell", status: "Acting", image: UIImage(named: "natasha.jpeg")),
+//        ]
+//    }
+    
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "SecondViewController") as? SecondViewController {
+            
+            if indexPath == [0,0] {
+                vc.actors = [
+                Cast.init(name: "James Marsden", status: "Acting", image: UIImage(named: "james.jpeg")),
+                Cast.init(name: "Jim Carrey", status: "Acting", image: UIImage(named: "jim.jpeg")),
+                Cast.init(name: "Ben Schwartz", status: "Acting", image: UIImage(named: "ben.jpeg")),
+                Cast.init(name: "Tika Sumpter", status: "Acting", image: UIImage(named: "tika.jpeg")),
+                Cast.init(name: "Natasha Rothwell", status: "Acting", image: UIImage(named: "natasha.jpeg"))
+            ]
+            } else if indexPath == [0,1] {
+                vc.actors = [
+                Cast.init(name: "Robert Pattinson", status: "Acting", image: UIImage(named: "robert.jpeg")),
+                Cast.init(name: "Zoë Kravitz", status: "Acting", image: UIImage(named: "zoe.jpeg")),
+                Cast.init(name: "Jeffrey Wright", status: "Acting", image: UIImage(named: "jeffrey.jpeg")),
+                Cast.init(name: "Colin Farrell", status: "Acting", image: UIImage(named: "colin.jpeg")),
+                Cast.init(name: "Paul Dano", status: "Acting", image: UIImage(named: "paul.jpeg")),
+            ]
+            } else if indexPath == [0,2] {
+                vc.actors = [
+                
+                ]
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }
