@@ -9,12 +9,18 @@ import UIKit
 
 class SecondViewController: UIViewController {
     @IBOutlet var myCollectionView: UICollectionView!
+    @IBOutlet var movieDetailsLabel: UILabel!
+    @IBOutlet var posterImageView: UIImageView!
+    
+    var movieDetailsText: String!
+    var posterImage: UIImage!
     var actors: [Cast] = []
-    var about = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         myCollectionView.dataSource = self
+        movieDetailsLabel.text = movieDetailsText
+        posterImageView.image = posterImage
     }
 }
 

@@ -13,15 +13,10 @@ class MovieCell: UITableViewCell {
     @IBOutlet var movieDateLabel: UILabel!
     @IBOutlet var movieRating: UILabel!
     
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func setUp(with movie: Movies) {
+        movieImageView.image = movie.image
+        movieTitleLable.text = movie.label
+        movieDateLabel.text = movie.date
+        movieRating.text = movie.rating
     }
 }
