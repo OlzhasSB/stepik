@@ -5,7 +5,6 @@
 //  Created by Olzhas Seiilkhanov on 16.05.2022.
 //
 
-import Foundation
 import UIKit
 
 struct Movies {

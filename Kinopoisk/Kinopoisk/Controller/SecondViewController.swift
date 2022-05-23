@@ -11,7 +11,11 @@ class SecondViewController: UIViewController {
     @IBOutlet var myCollectionView: UICollectionView!
     @IBOutlet var movieDetailsLabel: UILabel!
     @IBOutlet var posterImageView: UIImageView!
+    @IBOutlet var movieTitleLabel: UILabel!
+    @IBOutlet var movieDateLabel: UILabel!
     
+    var label: String!
+    var date: String!
     var movieDetailsText: String!
     var posterImage: UIImage!
     var actors: [Cast] = []
@@ -21,6 +25,9 @@ class SecondViewController: UIViewController {
         myCollectionView.dataSource = self
         movieDetailsLabel.text = movieDetailsText
         posterImageView.image = posterImage
+        movieTitleLabel.text = label
+        movieDateLabel.text = date
+        title = label
     }
 }
 
