@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		311364AE283B6B550063CD7A /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311364AD283B6B550063CD7A /* MovieDetailsViewController.swift */; };
-		311FADBA28366F3F00C68398 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311FADB928366F3F00C68398 /* Data.swift */; };
+		311E31192840BC9C001326D9 /* MovieManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E31182840BC9C001326D9 /* MovieManager.swift */; };
+		311E311B2840C082001326D9 /* MovieData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E311A2840C082001326D9 /* MovieData.swift */; };
+		311FADBA28366F3F00C68398 /* RawData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311FADB928366F3F00C68398 /* RawData.swift */; };
 		311FADBC2837559C00C68398 /* GenreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311FADBB2837559C00C68398 /* GenreCell.swift */; };
 		311FADBE283755C300C68398 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311FADBD283755C300C68398 /* Genre.swift */; };
 		312CA847283371D600B84556 /* Cast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CA846283371D600B84556 /* Cast.swift */; };
@@ -31,7 +33,9 @@
 
 /* Begin PBXFileReference section */
 		311364AD283B6B550063CD7A /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
-		311FADB928366F3F00C68398 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		311E31182840BC9C001326D9 /* MovieManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieManager.swift; sourceTree = "<group>"; };
+		311E311A2840C082001326D9 /* MovieData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieData.swift; sourceTree = "<group>"; };
+		311FADB928366F3F00C68398 /* RawData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawData.swift; sourceTree = "<group>"; };
 		311FADBB2837559C00C68398 /* GenreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreCell.swift; sourceTree = "<group>"; };
 		311FADBD283755C300C68398 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		312CA846283371D600B84556 /* Cast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cast.swift; sourceTree = "<group>"; };
@@ -76,7 +80,9 @@
 				311FADBD283755C300C68398 /* Genre.swift */,
 				31E87AFA283CD2C7000921AA /* TableSectionCell.swift */,
 				31E87AFE283CE1E3000921AA /* CollectionSectionCell.swift */,
-				311FADB928366F3F00C68398 /* Data.swift */,
+				311FADB928366F3F00C68398 /* RawData.swift */,
+				311E31182840BC9C001326D9 /* MovieManager.swift */,
+				311E311A2840C082001326D9 /* MovieData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -213,6 +219,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				311E31192840BC9C001326D9 /* MovieManager.swift in Sources */,
 				312CA847283371D600B84556 /* Cast.swift in Sources */,
 				31E87AFB283CD2C7000921AA /* TableSectionCell.swift in Sources */,
 				31E87AFF283CE1E3000921AA /* CollectionSectionCell.swift in Sources */,
@@ -224,9 +231,10 @@
 				316F6E0D28325AC60002AB08 /* AppDelegate.swift in Sources */,
 				312CA8492833723E00B84556 /* CastCell.swift in Sources */,
 				3197C985283CB12500842F3A /* CastMemberViewController.swift in Sources */,
+				311E311B2840C082001326D9 /* MovieData.swift in Sources */,
 				316F6E22283261480002AB08 /* MovieCell.swift in Sources */,
 				31E87AF9283CCA31000921AA /* HomeViewController.swift in Sources */,
-				311FADBA28366F3F00C68398 /* Data.swift in Sources */,
+				311FADBA28366F3F00C68398 /* RawData.swift in Sources */,
 				316F6E0F28325AC60002AB08 /* SceneDelegate.swift in Sources */,
 				311364AE283B6B550063CD7A /* MovieDetailsViewController.swift in Sources */,
 			);

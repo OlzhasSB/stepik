@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Data {
+struct RawData {
     var genres: [Genre] = [
         Genre.init(text: "All"),
         Genre.init(text: "Comedy"),

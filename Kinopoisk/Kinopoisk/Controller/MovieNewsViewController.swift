@@ -11,7 +11,7 @@ class MovieNewsViewController: UIViewController {
     @IBOutlet private var myTableView: UITableView!
     @IBOutlet private var genreCollectionView: UICollectionView!
     
-    let data = Data()
+    let data = RawData()
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -7,10 +7,13 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, MovieManagerDelegate {
+
     @IBOutlet private var sectionTableView: UITableView!
     
-    private let data = Data()
+    var movieManager = MovieManager()
+    private let data = RawData()
+    var films = MovieData(results: [])
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +24,17 @@ class HomeViewController: UIViewController {
     private func register() {
         sectionTableView.dataSource = self
         sectionTableView.delegate = self
+        movieManager.delegate = self
+        movieManager.performRequest()
     }
+    
+    func didUpdateMovies(movieList: MovieData) {
+        
+        films = movieList
+        print(films.results[0].overview)
+    }
+    
+    
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
@@ -34,6 +47,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         cell.sectionLabel.text = data.sections[indexPath.row]
         cell.films = data.movies
         cell.delegate = self
+        
+        //cell.films = films.results[indexPath.row]
+        
+        
         return cell
     }
 }

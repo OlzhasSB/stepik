@@ -12,9 +12,6 @@ struct Movie {
     let releaseDate: String?
     let voteAverage: String?
     let posterPath: UIImage?
-    
-    
-    
     let details: String?
     let poster: UIImage?
     let actors: [Cast]?
