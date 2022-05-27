@@ -11,4 +11,6 @@ struct Cast {
     var name: String?
     var status: String?
     var image: UIImage?
+    var birthday: String?
+    var biography: String?
 }
