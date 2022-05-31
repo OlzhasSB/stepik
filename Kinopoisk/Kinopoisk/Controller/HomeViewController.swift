@@ -50,17 +50,15 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         sectionNames.count
     }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
-    }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "sectionCell") as! TableSectionCell
         if sectionMovies.count > 0 {
-            cell.configure(with: (sectionNames[indexPath.section], movies: sectionMovies[indexPath.section]))
+            cell.configure(with: (sectionNames[indexPath.row], movies: sectionMovies[indexPath.row]))
         }
         cell.delegate = self
         return cell
@@ -76,6 +74,7 @@ extension HomeViewController: UIdelegate {
 }
 
 extension HomeViewController {
+    
     private func loadGenres() {
         networkManager.loadGenres { [weak self] genres in
             self?.genres = genres

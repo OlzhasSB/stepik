@@ -10,9 +10,11 @@ import UIKit
 class MovieNewsViewController: UIViewController {
     @IBOutlet private var myTableView: UITableView!
     @IBOutlet private var genreCollectionView: UICollectionView!
+    private var networkManager = NetworkManager.shared
     
 //    let data = RawData()
-
+    private var genres: [Genre] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "News"
@@ -60,5 +62,14 @@ extension MovieNewsViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCell", for: indexPath) as! GenreCell
 //        cell.setUp(with: data.genres[indexPath.row])
         return cell
+    }
+}
+
+extension MovieNewsViewController {
+    
+    private func loadGenres() {
+        networkManager.loadGenres { [weak self] genres in
+            self?.genres = genres
+        }
     }
 }
