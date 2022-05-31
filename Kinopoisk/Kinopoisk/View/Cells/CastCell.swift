@@ -12,9 +12,9 @@ class CastCell: UICollectionViewCell {
     @IBOutlet var castName: UILabel!
     @IBOutlet var castStatus: UILabel!
     
-    func setUp(with cast: Cast) {
-        castImageView.image = cast.image
-        castName.text = cast.name
-        castStatus.text = cast.status
-    }
+//    func setUp(with cast: Cast) {
+//        castImageView.image = cast.image
+//        castName.text = cast.name
+//        castStatus.text = cast.status
+//    }
 }

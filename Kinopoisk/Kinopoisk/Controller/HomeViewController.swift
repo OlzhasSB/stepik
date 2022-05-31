@@ -7,50 +7,62 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, MovieManagerDelegate {
-
+class HomeViewController: UIViewController {
     @IBOutlet private var sectionTableView: UITableView!
     
-    var movieManager = MovieManager()
-    private let data = RawData()
-    var films = MovieData(results: [])
+    private var networkManager = NetworkManager.shared
+    private var genres: [Genre] = []
+    var sectionNames: [String] = ["Today at the cinema", "Soon at the cinema", "Trending movies"]
     
+//    private var todayMovies: [Movie] = [] {
+//        didSet {
+//            sectionTableView.reloadData()
+//        }
+//    }
+//    private var soonMovies: [Movie] = [] {
+//        didSet {
+//            sectionTableView.reloadData()
+//        }
+//    }
+//    private var trendingMovies: [Movie] = [] {
+//        didSet {
+//            sectionTableView.reloadData()
+//        }
+//    }
+    lazy var sectionMovies: [[Movie]] = [] {
+        didSet {
+            sectionTableView.reloadData()
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        register()
         title = "Movies"
+        setUp()
+        loadGenres()
+        loadMovies()
     }
     
-    private func register() {
+    private func setUp() {
         sectionTableView.dataSource = self
         sectionTableView.delegate = self
-        movieManager.delegate = self
-        movieManager.performRequest()
     }
-    
-    func didUpdateMovies(movieList: MovieData) {
-        
-        films = movieList
-        print(films.results[0].overview)
-    }
-    
-    
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        sectionNames.count
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.sections.count
+        1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "sectionCell") as! TableSectionCell
-        cell.sectionLabel.text = data.sections[indexPath.row]
-        cell.films = data.movies
+        if sectionMovies.count > 0 {
+            cell.configure(with: (sectionNames[indexPath.section], movies: sectionMovies[indexPath.section]))
+        }
         cell.delegate = self
-        
-        //cell.films = films.results[indexPath.row]
-        
-        
         return cell
     }
 }
@@ -59,6 +71,29 @@ extension HomeViewController: UIdelegate {
     func goToNext() {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "MovieNewsViewController") as? MovieNewsViewController {
             self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}
+
+extension HomeViewController {
+    private func loadGenres() {
+        networkManager.loadGenres { [weak self] genres in
+            self?.genres = genres
+        }
+    }
+    
+    private func loadMovies() {
+        networkManager.loadTodayMovies { [weak self] movies in
+//            self?.todayMovies = movies
+            self?.sectionMovies.append(movies)
+        }
+        networkManager.loadSoonMovies { [weak self] movies in
+//            self?.soonMovies = movies
+            self?.sectionMovies.append(movies)
+        }
+        networkManager.loadTrendingMovies { [weak self] movies in
+//            self?.trendingMovies = movies
+            self?.sectionMovies.append(movies)
         }
     }
 }

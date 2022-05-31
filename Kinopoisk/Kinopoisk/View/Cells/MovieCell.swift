@@ -13,10 +13,10 @@ class MovieCell: UITableViewCell {
     @IBOutlet var movieDateLabel: UILabel!
     @IBOutlet var movieRating: UILabel!
     
-    func setUp(with movie: Movie) {
-        movieImageView.image = movie.posterPath
-        movieTitleLable.text = movie.title
-        movieDateLabel.text = movie.releaseDate
-        movieRating.text = movie.voteAverage
-    }
+//    func setUp(with movie: Movie) {
+//        movieImageView.image = movie.posterPatch
+//        movieTitleLable.text = movie.title
+//        movieDateLabel.text = movie.releaseDate
+//        movieRating.text = movie.voteAverage
+//    }
 }

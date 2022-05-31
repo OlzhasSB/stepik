@@ -22,14 +22,14 @@ class CastMemberViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        assign()
+//        assign()
     }
     
-    private func assign() {
-        castImageView.image = castImage
-        castNameLabel.text = castName
-        castBirthdayLabel.text = castBirthday
-        castDepartmentLabel.text = castDepartment
-        castBiographyLabel.text = castBiography
-    }
+//    private func assign() {
+//        castImageView.image = castImage
+//        castNameLabel.text = castName
+//        castBirthdayLabel.text = castBirthday
+//        castDepartmentLabel.text = castDepartment
+//        castBiographyLabel.text = castBiography
+//    }
 }

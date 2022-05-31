@@ -70,6 +70,9 @@
                                                                             <constraint firstAttribute="height" constant="200" id="Xv4-cy-dLu"/>
                                                                             <constraint firstAttribute="width" constant="160" id="fEV-5G-n0L"/>
                                                                         </constraints>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.CornerRadius" value="5"/>
+                                                                        </userDefinedRuntimeAttributes>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sonic the Hedgehog" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5C-lR-YqL">
                                                                         <rect key="frame" x="4" y="208" width="206" height="20.5"/>
@@ -83,6 +86,21 @@
                                                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="★8.9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3WH-Ps-ePJ">
+                                                                        <rect key="frame" x="17" y="20" width="62" height="26"/>
+                                                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="20" id="9pP-b6-6xg"/>
+                                                                            <constraint firstAttribute="width" constant="40" id="Wsf-kL-BOA"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </label>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
@@ -90,11 +108,13 @@
                                                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Scx-Tm-Qj1" secondAttribute="bottom" constant="4" id="Mez-P8-hmg"/>
                                                                     <constraint firstItem="HG4-9G-saO" firstAttribute="top" secondItem="KZI-Lo-BmY" secondAttribute="top" constant="4" id="MxF-Og-j7G"/>
                                                                     <constraint firstItem="Scx-Tm-Qj1" firstAttribute="trailing" secondItem="HG4-9G-saO" secondAttribute="trailing" id="Mz8-vu-MPl"/>
+                                                                    <constraint firstItem="3WH-Ps-ePJ" firstAttribute="top" secondItem="KZI-Lo-BmY" secondAttribute="top" constant="12" id="Q1h-km-VYh"/>
                                                                     <constraint firstAttribute="trailing" secondItem="HG4-9G-saO" secondAttribute="trailing" constant="8" id="UnA-WX-Gxt"/>
                                                                     <constraint firstItem="t5C-lR-YqL" firstAttribute="trailing" secondItem="HG4-9G-saO" secondAttribute="trailing" id="Wtd-T0-cLo"/>
                                                                     <constraint firstItem="Scx-Tm-Qj1" firstAttribute="top" secondItem="t5C-lR-YqL" secondAttribute="bottom" constant="4" id="dSa-rm-mPe"/>
                                                                     <constraint firstItem="HG4-9G-saO" firstAttribute="leading" secondItem="KZI-Lo-BmY" secondAttribute="leading" constant="4" id="ePH-H9-KNc"/>
                                                                     <constraint firstItem="t5C-lR-YqL" firstAttribute="leading" secondItem="HG4-9G-saO" secondAttribute="leading" id="g0U-YV-L48"/>
+                                                                    <constraint firstItem="3WH-Ps-ePJ" firstAttribute="leading" secondItem="KZI-Lo-BmY" secondAttribute="leading" constant="12" id="nyx-EE-76k"/>
                                                                     <constraint firstItem="t5C-lR-YqL" firstAttribute="top" secondItem="HG4-9G-saO" secondAttribute="bottom" constant="4" id="zOI-9x-Gvh"/>
                                                                 </constraints>
                                                             </collectionViewCellContentView>
@@ -102,6 +122,7 @@
                                                             <connections>
                                                                 <outlet property="genreLabel" destination="Scx-Tm-Qj1" id="rY4-Jl-qhp"/>
                                                                 <outlet property="posterImageView" destination="HG4-9G-saO" id="zxj-nr-rlf"/>
+                                                                <outlet property="ratingLabel" destination="3WH-Ps-ePJ" id="p1K-0q-lMk"/>
                                                                 <outlet property="titleLabel" destination="t5C-lR-YqL" id="9G1-vQ-ijw"/>
                                                             </connections>
                                                         </collectionViewCell>
@@ -145,7 +166,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ieS-Mi-VyC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1735" y="-593"/>
+            <point key="canvasLocation" x="1734.7826086956522" y="-593.30357142857144"/>
         </scene>
         <!--Movie News View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -636,6 +657,9 @@
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

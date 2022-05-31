@@ -12,31 +12,40 @@ protocol UIdelegate {
 }
 
 class TableSectionCell: UITableViewCell {
-    @IBOutlet var sectionLabel: UILabel!
-    @IBOutlet var sectionCollectionView: UICollectionView!
     var delegate: UIdelegate?
     
+    private var movies: [Movie] = [] {
+        didSet {
+            sectionCollectionView.reloadData()
+        }
+    }
+    
+    @IBOutlet var sectionLabel: UILabel!
+    @IBOutlet var sectionCollectionView: UICollectionView!
     @IBAction func allButtonPressed(_ sender: UIButton) {
         delegate?.goToNext()
     }
-    
-    var films: [Movie] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
         sectionCollectionView.dataSource = self
         sectionCollectionView.delegate = self
     }
+    
+    func configure(with viewModel: (title: String?, movies: [Movie])) {
+        self.sectionLabel.text = viewModel.title
+        self.movies = viewModel.movies
+    }
 }
 
 extension TableSectionCell: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return films.count
+        return movies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! CollectionSectionCell
-        cell.setUp(with: films[indexPath.row])
+        cell.setUp(with: movies[indexPath.row])
         return cell
     }
 }
