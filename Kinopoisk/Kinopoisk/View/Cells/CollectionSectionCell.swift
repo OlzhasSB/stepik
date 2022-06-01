@@ -12,10 +12,9 @@ class CollectionSectionCell: UICollectionViewCell {
     @IBOutlet var genreLabel: UILabel!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var ratingLabel: UILabel!
+    @IBOutlet var ratingView: UIView!
     
-    func setUp(with movie: Movie) {
-        genreLabel.text = "Action, Comedy"
-        
+    func setUp(with movie: Movie, genres: [Genre]) {
         NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: { [weak self] imageData in
             self?.posterImageView.image = UIImage(data: imageData)
         })
@@ -24,14 +23,14 @@ class CollectionSectionCell: UICollectionViewCell {
         ratingLabel.text = "★" + String(format: "%.1f", movie.voteAverage!)
         
         if movie.voteAverage! < 4 {
-            ratingLabel.backgroundColor = UIColor.systemRed
+            ratingView.backgroundColor = UIColor.systemRed
         } else if movie.voteAverage! < 7 {
-            ratingLabel.backgroundColor = UIColor.systemOrange
+            ratingView.backgroundColor = UIColor.systemOrange
         } else {
-            ratingLabel.backgroundColor = UIColor.systemGreen
+            ratingView.backgroundColor = UIColor.systemGreen
         }
         
-        //genreLabel.text = getGenres(by: movie.genreIds, genres: genres)
+        genreLabel.text = getGenres(by: movie.genreIds, genres: genres)
         
     }
     

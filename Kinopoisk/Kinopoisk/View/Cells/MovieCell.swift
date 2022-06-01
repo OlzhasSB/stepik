@@ -13,10 +13,21 @@ class MovieCell: UITableViewCell {
     @IBOutlet var movieDateLabel: UILabel!
     @IBOutlet var movieRating: UILabel!
     
-//    func setUp(with movie: Movie) {
-//        movieImageView.image = movie.posterPatch
-//        movieTitleLable.text = movie.title
-//        movieDateLabel.text = movie.releaseDate
-//        movieRating.text = movie.voteAverage
-//    }
+    func setUp(with movie: Movie) {
+        movieTitleLable.text = movie.originalTitle
+        movieDateLabel.text = movie.releaseDate
+        movieRating.text = "★" + String(format: "%.1f", movie.voteAverage!)
+        
+        NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: { [weak self] imageData in
+            self?.movieImageView.image = UIImage(data: imageData)
+        })
+        
+        if movie.voteAverage! < 4 {
+            movieRating.backgroundColor = UIColor.systemRed
+        } else if movie.voteAverage! < 7 {
+            movieRating.backgroundColor = UIColor.systemOrange
+        } else {
+            movieRating.backgroundColor = UIColor.systemGreen
+        }
+    }
 }

@@ -8,10 +8,12 @@
 import UIKit
 
 class GenreCell: UICollectionViewCell {
-    @IBOutlet var genreButton: UIButton!
+    @IBOutlet var genreLabel: UILabel!
     
-//    func setUp(with genre: Genre) {
-//        genreButton.setTitle(genre.text, for: .normal)
-//    }
+    func setUp(with genre: Genre) {
+        genreLabel.text = genre.name
+    }
+    
+   // genreLabel.layer.masksToBounds
     
 }

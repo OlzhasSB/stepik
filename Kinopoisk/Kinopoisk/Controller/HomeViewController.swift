@@ -58,7 +58,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "sectionCell") as! TableSectionCell
         if sectionMovies.count > 0 {
-            cell.configure(with: (sectionNames[indexPath.row], movies: sectionMovies[indexPath.row]))
+            cell.configure(with: (sectionNames[indexPath.row], movies: sectionMovies[indexPath.row]), genres: genres)
         }
         cell.delegate = self
         return cell
@@ -68,6 +68,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 extension HomeViewController: UIdelegate {
     func goToNext() {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "MovieNewsViewController") as? MovieNewsViewController {
+            vc.movies = self.sectionMovies[0]
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

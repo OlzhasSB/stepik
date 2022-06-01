@@ -13,12 +13,18 @@ class MovieNewsViewController: UIViewController {
     private var networkManager = NetworkManager.shared
     
 //    let data = RawData()
-    private var genres: [Genre] = []
+    var movies: [Movie] = []
+    private var genres: [Genre] = [] {
+        didSet {
+            genreCollectionView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "News"
         register()
+        loadGenres()
     }
     
     private func register() {
@@ -42,25 +48,29 @@ extension MovieNewsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return data.movies.count
-        return 1
+        return movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell") as! MovieCell
-//        cell.setUp(with: data.movies[indexPath.row])
+        cell.setUp(with: movies[indexPath.row])
         return cell
     }
 }
 
 extension MovieNewsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return data.genres.count
-        return 1
+//        if genres.count > 0 {
+//            return genres.count
+//        }
+        return 19
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCell", for: indexPath) as! GenreCell
-//        cell.setUp(with: data.genres[indexPath.row])
+        if genres.count > 0 {
+            cell.setUp(with: genres[indexPath.row])
+        }
         return cell
     }
 }
