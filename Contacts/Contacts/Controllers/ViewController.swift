@@ -9,23 +9,29 @@ import UIKit
 
 class ViewController: UIViewController {
 
-
-    let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "contactCell")
-        return tableView
-    }()
+    let contacts: [Contact] = [
+        Contact.init(name: "Name Surname", number: "number", photo: UIImage(named: "avengers.jpeg")),
+        Contact.init(name: "Name Surname", number: "number", photo: UIImage(named: "sonic.jpeg")),
+        Contact.init(name: "Name Surname", number: "number", photo: UIImage(named: "avengers.jpeg"))
+    ]
+    
+    let tableView = UITableView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        title = "Contacts"
     }
     
     func setupTableView() {
+        view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-        view.addSubview(tableView)
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(ContactCell.self, forCellReuseIdentifier: "contactCell")
+        tableView.rowHeight = 100
+        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -37,13 +43,20 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return contacts.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell") as! ContactCell
+        cell.set(contacts[indexPath.row])
+        return cell
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath)
-        
-        return cell
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "ContactDetailsViewController") as? ContactDetailsViewController {
+            navigationController?.pushViewController(vc, animated: true)
+        }
+            
     }
 }
 
