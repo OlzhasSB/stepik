@@ -9,18 +9,14 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let contacts: [Contact] = [
-        Contact.init(name: "Name Surname", number: "number", photo: UIImage(named: "avengers.jpeg")),
-        Contact.init(name: "Name Surname", number: "number", photo: UIImage(named: "sonic.jpeg")),
-        Contact.init(name: "Name Surname", number: "number", photo: UIImage(named: "avengers.jpeg"))
-    ]
-    
+    var data = Data()
     let tableView = UITableView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
         title = "Contacts"
+        setupTableView()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAddContact))
     }
     
     func setupTableView() {
@@ -30,8 +26,8 @@ class ViewController: UIViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ContactCell.self, forCellReuseIdentifier: "contactCell")
-        tableView.rowHeight = 100
-        
+        tableView.rowHeight = 120
+    
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -39,56 +35,62 @@ class ViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    @objc func handleAddContact() {
+        
+        let controller = AddContactViewController()
+        controller.delegate = self
+        
+        self.present(UINavigationController(rootViewController: controller), animated: true, completion: nil)
+    }
+    
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contacts.count
+        return data.contacts.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell") as! ContactCell
-        cell.set(contacts[indexPath.row])
+        cell.assignParameters(data.contacts[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let vc = storyboard?.instantiateViewController(withIdentifier: "ContactDetailsViewController") as? ContactDetailsViewController {
-            navigationController?.pushViewController(vc, animated: true)
+        let detailsVC = ContactDetailsViewController()
+        detailsVC.name = data.contacts[indexPath.row].name
+        detailsVC.number = data.contacts[indexPath.row].number
+        detailsVC.imageView = data.contacts[indexPath.row].photo
+        
+        navigationController?.pushViewController(detailsVC, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            data.contacts.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
-            
+//        else if editingStyle == .insert {
+//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+//        }
+    }
+    
+}
+
+extension ViewController: AddContactDelegate {
+    func addContact(contact: Contact) {
+        self.dismiss(animated: true) {
+            self.data.contacts.append(contact)
+            self.tableView.reloadData()
+        }
     }
 }
 
-
-//var deleteButton: UIButton = {
-//    let button = UIButton(frame: CGRect(x: 20, y: UIScreen.main.bounds.height-80, width: UIScreen.main.bounds.width*0.9, height: 40))
-//    button.setTitle("Delete", for: .normal)
-//    button.backgroundColor = .red
-//    button.titleLabel?.textColor = .white
-//    return button
-//}()
-//
-//var callButton: UIButton = {
-//    let button = UIButton(frame: CGRect(x: 20, y: UIScreen.main.bounds.height-130, width: UIScreen.main.bounds.width*0.9, height: 40))
-//    button.setTitle("Call", for: .normal)
-//    button.backgroundColor = .systemBlue
-//    button.titleLabel?.textColor = .white
-//    return button
-//}()
-//
-//var nameLabel: UILabel = {
-//    let label = UILabel(frame: CGRect(x: 20, y: 40, width: UIScreen.main.bounds.width*0.9, height: 40))
-//    label.text = "Name and Surname"
-//    label.font = .systemFont(ofSize: 24, weight: .bold)
-//    label.textAlignment = .center
-//    return label
-//}()
-//
-//var numberLabel: UILabel = {
-//    let label = UILabel(frame: CGRect(x: 20, y: 80, width: UIScreen.main.bounds.width*0.9, height: 40))
-//    label.text = "87777777777"
-//    label.font = .systemFont(ofSize: 24, weight: .bold)
-//    label.textAlignment = .center
-//    return label
-//}()
+extension ViewController: DeleteContactDelegate {
+    func deleteContact() {
+        self.data.contacts.remove(at: 0)
+        tableView.deleteRows(at: [[0,0]], with: .fade)
+        self.tableView.reloadData()
+    }
+}

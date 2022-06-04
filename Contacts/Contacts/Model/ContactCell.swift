@@ -28,23 +28,25 @@ class ContactCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(_ contact: Contact) {
+    func assignParameters(_ contact: Contact) {
         contactNameLabel.text = contact.name
         contactImageView.image = contact.photo
         contactNumberLabel.text = contact.number
     }
     
+    // MARK: - Constraints
+    
     func configureImageView() {
         contactImageView.translatesAutoresizingMaskIntoConstraints = false
         contactImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         contactImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
-        contactImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        contactImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        contactImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        contactImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
     
     func configureNameLabel() {
         contactNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        contactNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
+        contactNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 25).isActive = true
         contactNameLabel.leadingAnchor.constraint(equalTo: contactImageView.trailingAnchor, constant: 20).isActive = true
         contactNameLabel.heightAnchor.constraint(equalToConstant: 25).isActive = true
         contactNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12).isActive = true
@@ -54,7 +56,7 @@ class ContactCell: UITableViewCell {
     
     func configureNumberLabel() {
         contactNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-        contactNumberLabel.topAnchor.constraint(equalTo: contactNameLabel.bottomAnchor, constant: 5).isActive = true
+        contactNumberLabel.topAnchor.constraint(equalTo: contactNameLabel.bottomAnchor, constant: 10).isActive = true
         contactNumberLabel.leadingAnchor.constraint(equalTo: contactImageView.trailingAnchor, constant: 20).isActive = true
         contactNumberLabel.heightAnchor.constraint(equalToConstant: 25).isActive = true
         contactNumberLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12).isActive = true
