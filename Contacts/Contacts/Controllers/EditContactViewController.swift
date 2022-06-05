@@ -8,12 +8,14 @@
 import UIKit
 
 protocol EditContactDelegate {
-    func editContact(contact: Contact)
+    func editContact(contact: Contact, index: IndexPath)
 }
 
 class EditContactViewController: UIViewController {
 
     var delegate: EditContactDelegate?
+    var index: IndexPath!
+    var selectedGender: String?
     
     let genders: [String] = ["male", "female"]
     var currentName: String?
@@ -21,13 +23,13 @@ class EditContactViewController: UIViewController {
     var currentGender: String? {
         didSet {
             if currentGender == "male" {
-                index = 0
+                genderIndex = 0
             } else {
-                index = 1
+                genderIndex = 1
             }
         }
     }
-    var index: Int?
+    var genderIndex: Int?
     
     let nameTextField: UITextField = {
         let textField = UITextField()
@@ -69,9 +71,12 @@ class EditContactViewController: UIViewController {
     }
     
     @objc func saveButtonTapped() {
-//        guard let fullname = nameTextField.text, nameTextField.hasText else { return }
-//        guard let number = numberTextField.text, numberTextField.hasText else { return }
-        delegate?.editContact(contact: <#T##Contact#>)
+        guard let fullname = nameTextField.text, nameTextField.hasText else { return }
+        guard let number = numberTextField.text, numberTextField.hasText else { return }
+        
+        let contact = Contact(name: fullname, number: number, photo: UIImage(named: "male.png"), gender: selectedGender)
+        
+        delegate?.editContact(contact: contact, index: index)
         
         navigationController?.popViewController(animated: true)
         
@@ -83,7 +88,7 @@ class EditContactViewController: UIViewController {
     func preselect() {
         nameTextField.text = currentName
         numberTextField.text = currentNumber
-        picker.selectRow(index ?? 0, inComponent: 0, animated: true)
+        picker.selectRow(genderIndex ?? 0, inComponent: 0, animated: true)
     }
     
     // MARK: - Configuration
@@ -163,7 +168,7 @@ extension EditContactViewController: UIPickerViewDataSource, UIPickerViewDelegat
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        selectedGender = genders[row]
+        selectedGender = genders[row]
     }
 }
 

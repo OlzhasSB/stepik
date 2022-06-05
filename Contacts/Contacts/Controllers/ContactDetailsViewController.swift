@@ -31,6 +31,9 @@ class ContactDetailsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        let editVC = EditContactViewController()
+        editVC.delegate = self
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(handleEditContact))
         
         view.addSubview(nameLabel)
@@ -64,10 +67,11 @@ class ContactDetailsViewController: UIViewController {
         editVC.currentName = name
         editVC.currentNumber = number
         editVC.currentGender = gender
+        editVC.index = index
         navigationController?.pushViewController(editVC, animated: true)
     }
     
-    // MARK: - Constraints
+    // MARK: - Configurations
     
     func configureImageView() {
         contactImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -118,5 +122,24 @@ class ContactDetailsViewController: UIViewController {
         deleteButton.setTitle("Delete", for: .normal)
         deleteButton.titleLabel?.textColor = .white
         deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+    }
+}
+
+extension ContactDetailsViewController: EditContactDelegate {
+    func editContact(contact: Contact, index: IndexPath) {
+//        self.data.contacts[index.row] = contact
+        
+//        self.data.contacts.append(contact)
+
+        
+        self.nameLabel.text = contact.name
+        self.numberLabel.text = contact.number
+        
+        
+//        self.data.contacts.insert(contact, at: index)
+        
+//        remove(at: index.row)
+//        self.tableView.deleteRows(at: [index], with: .fade)
+//        self.tableView.reloadData()
     }
 }

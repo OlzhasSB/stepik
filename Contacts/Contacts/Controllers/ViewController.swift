@@ -18,6 +18,9 @@ class ViewController: UIViewController {
         view.addSubview(tableView)
         setupTableView()
         
+        let editVC = EditContactViewController()
+        editVC.delegate = self
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAddContact))
     }
     
@@ -93,6 +96,23 @@ extension ViewController: DeleteContactDelegate {
     func deleteContact(index: IndexPath) {
         self.data.contacts.remove(at: index.row)
         self.tableView.deleteRows(at: [index], with: .fade)
+        self.tableView.reloadData()
+    }
+}
+
+extension ViewController: EditContactDelegate {
+    func editContact(contact: Contact, index: IndexPath) {
+//        self.data.contacts[index.row] = contact
+        
+//        self.data.contacts.append(contact)
+
+        
+        self.data.contacts[index.row] = contact
+        
+//        self.data.contacts.insert(contact, at: index)
+        
+//        remove(at: index.row)
+//        self.tableView.deleteRows(at: [index], with: .fade)
         self.tableView.reloadData()
     }
 }
