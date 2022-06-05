@@ -10,5 +10,11 @@ import UIKit
 struct Contact {
     let name: String?
     let number: String?
-    let photo: UIImage?
+    var photo: UIImage?
+    var gender: String?
+//    {
+//        didSet {
+//            self.photo = UIImage(named: "\(gender ?? "").png")
+//        }
+//    }
 }

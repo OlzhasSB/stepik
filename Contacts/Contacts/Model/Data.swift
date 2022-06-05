@@ -9,8 +9,8 @@ import UIKit
 
 struct Data {
     var contacts: [Contact] = [
-        Contact.init(name: "Name Surname", number: "number", photo: UIImage(named: "avengers.jpeg")),
-        Contact.init(name: "Name Surname", number: "number", photo: UIImage(named: "sonic.jpeg")),
-        Contact.init(name: "Name Surname", number: "number", photo: UIImage(named: "avengers.jpeg"))
+        Contact.init(name: "Name Surname", number: "87777777777", photo: UIImage(named: "male.png"), gender: "male"),
+        Contact.init(name: "Name Surname", number: "87777777777", photo: UIImage(named: "female.png"), gender: "female"),
+        Contact.init(name: "Name Surname", number: "87777777777", photo: UIImage(named: "male.png"), gender: "male")
     ]
 }

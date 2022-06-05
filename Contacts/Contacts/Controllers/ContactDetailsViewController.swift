@@ -8,27 +8,30 @@
 import UIKit
 
 protocol DeleteContactDelegate {
-    func deleteContact()
+    func deleteContact(index: IndexPath)
 }
 
 class ContactDetailsViewController: UIViewController {
 
-    var delegate: DeleteContactDelegate?
+    private var contactImageView = UIImageView()
+    private var deleteButton = UIButton()
+    private var callButton = UIButton()
+    private var nameLabel = UILabel()
+    private var numberLabel = UILabel()
     
-    var contactImageView = UIImageView()
-    var deleteButton = UIButton()
-    var callButton = UIButton()
-    var nameLabel = UILabel()
-    var numberLabel = UILabel()
+    var delegate: DeleteContactDelegate?
     
     var imageView: UIImage!
     var name: String!
     var number: String!
+    var gender: String!
+    var index: IndexPath!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Second"
         view.backgroundColor = .white
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(handleEditContact))
         
         view.addSubview(nameLabel)
         view.addSubview(numberLabel)
@@ -52,7 +55,16 @@ class ContactDetailsViewController: UIViewController {
     }
     
     @objc func deleteButtonTapped() {
-        delegate?.deleteContact()
+        delegate?.deleteContact(index: index)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func handleEditContact() {
+        let editVC  = EditContactViewController()
+        editVC.currentName = name
+        editVC.currentNumber = number
+        editVC.currentGender = gender
+        navigationController?.pushViewController(editVC, animated: true)
     }
     
     // MARK: - Constraints
@@ -73,7 +85,6 @@ class ContactDetailsViewController: UIViewController {
         nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12).isActive = true
         nameLabel.textAlignment = .center
         nameLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        nameLabel.text = "Name Surname"
     }
 
     func configureNumberLabel() {
@@ -84,7 +95,6 @@ class ContactDetailsViewController: UIViewController {
         numberLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12).isActive = true
         numberLabel.textAlignment = .center
         numberLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        numberLabel.text = "877777777"
     }
     
     func configureCallButton() {

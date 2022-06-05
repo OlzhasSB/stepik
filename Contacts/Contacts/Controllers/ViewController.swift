@@ -15,12 +15,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Contacts"
+        view.addSubview(tableView)
         setupTableView()
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAddContact))
     }
     
     func setupTableView() {
-        view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -37,14 +38,14 @@ class ViewController: UIViewController {
     }
     
     @objc func handleAddContact() {
-        
         let controller = AddContactViewController()
         controller.delegate = self
-        
-        self.present(UINavigationController(rootViewController: controller), animated: true, completion: nil)
+        navigationController?.pushViewController(controller, animated: true)
     }
     
 }
+
+// MARK: - TableView Protocols
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -62,7 +63,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         detailsVC.name = data.contacts[indexPath.row].name
         detailsVC.number = data.contacts[indexPath.row].number
         detailsVC.imageView = data.contacts[indexPath.row].photo
+        detailsVC.gender = data.contacts[indexPath.row].gender
+        detailsVC.index = indexPath
         
+        detailsVC.delegate = self
         navigationController?.pushViewController(detailsVC, animated: true)
     }
     
@@ -71,12 +75,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             data.contacts.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
-//        else if editingStyle == .insert {
-//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-//        }
     }
-    
 }
+
+// MARK: - Add/Delete Delegates
 
 extension ViewController: AddContactDelegate {
     func addContact(contact: Contact) {
@@ -88,9 +90,9 @@ extension ViewController: AddContactDelegate {
 }
 
 extension ViewController: DeleteContactDelegate {
-    func deleteContact() {
-        self.data.contacts.remove(at: 0)
-        tableView.deleteRows(at: [[0,0]], with: .fade)
+    func deleteContact(index: IndexPath) {
+        self.data.contacts.remove(at: index.row)
+        self.tableView.deleteRows(at: [index], with: .fade)
         self.tableView.reloadData()
     }
 }
