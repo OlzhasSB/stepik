@@ -12,9 +12,4 @@ struct Contact {
     let number: String?
     var photo: UIImage?
     var gender: String?
-//    {
-//        didSet {
-//            self.photo = UIImage(named: "\(gender ?? "").png")
-//        }
-//    }
 }

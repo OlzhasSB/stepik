@@ -7,24 +7,36 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
-    var data = Data()
-    let tableView = UITableView()
+class MainViewController: UIViewController {
+    
+    private var contactList = Data()
+    private let tableView = UITableView()
+    private let emptyLabel = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Contacts"
         view.addSubview(tableView)
-        setupTableView()
-        
-        let editVC = EditContactViewController()
-        editVC.delegate = self
-        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAddContact))
+        setupTableView()
+        setupEmptyLabel()
     }
     
-    func setupTableView() {
+    override func viewWillAppear(_ animated: Bool) {
+        if contactList.contacts.isEmpty {
+            emptyLabel.isHidden = false
+        } else {
+            emptyLabel.isHidden = true
+        }
+    }
+    
+    @objc private func handleAddContact() {
+        let controller = AddContactViewController()
+        controller.delegate = self
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -40,33 +52,37 @@ class ViewController: UIViewController {
         ])
     }
     
-    @objc func handleAddContact() {
-        let controller = AddContactViewController()
-        controller.delegate = self
-        navigationController?.pushViewController(controller, animated: true)
+    private func setupEmptyLabel() {
+        view.addSubview(emptyLabel)
+        
+        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
+        emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        emptyLabel.text = "No contacts"
+        emptyLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        emptyLabel.isHidden = true
     }
-    
 }
 
 // MARK: - TableView Protocols
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.contacts.count
+        return contactList.contacts.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell") as! ContactCell
-        cell.assignParameters(data.contacts[indexPath.row])
+        cell.assignParameters(contactList.contacts[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailsVC = ContactDetailsViewController()
-        detailsVC.name = data.contacts[indexPath.row].name
-        detailsVC.number = data.contacts[indexPath.row].number
-        detailsVC.imageView = data.contacts[indexPath.row].photo
-        detailsVC.gender = data.contacts[indexPath.row].gender
+        detailsVC.name = contactList.contacts[indexPath.row].name
+        detailsVC.number = contactList.contacts[indexPath.row].number
+        detailsVC.imageView = contactList.contacts[indexPath.row].photo
+        detailsVC.gender = contactList.contacts[indexPath.row].gender
         detailsVC.index = indexPath
         
         detailsVC.delegate = self
@@ -75,44 +91,36 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            data.contacts.remove(at: indexPath.row)
+            contactList.contacts.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            if contactList.contacts.isEmpty {
+                emptyLabel.isHidden = false
+            } else {
+                emptyLabel.isHidden = true
+            }
         }
     }
 }
 
-// MARK: - Add/Delete Delegates
+// MARK: - Add/Update Delegates
 
-extension ViewController: AddContactDelegate {
+extension MainViewController: AddContactDelegate {
     func addContact(contact: Contact) {
-        self.dismiss(animated: true) {
-            self.data.contacts.append(contact)
-            self.tableView.reloadData()
-        }
+        self.contactList.contacts.append(contact)
+        self.tableView.reloadData()
     }
 }
 
-extension ViewController: DeleteContactDelegate {
+extension MainViewController: UpdateContactDelegate {
     func deleteContact(index: IndexPath) {
-        self.data.contacts.remove(at: index.row)
+        self.contactList.contacts.remove(at: index.row)
         self.tableView.deleteRows(at: [index], with: .fade)
         self.tableView.reloadData()
     }
-}
-
-extension ViewController: EditContactDelegate {
+    
     func editContact(contact: Contact, index: IndexPath) {
-//        self.data.contacts[index.row] = contact
-        
-//        self.data.contacts.append(contact)
-
-        
-        self.data.contacts[index.row] = contact
-        
-//        self.data.contacts.insert(contact, at: index)
-        
-//        remove(at: index.row)
-//        self.tableView.deleteRows(at: [index], with: .fade)
+        self.contactList.contacts[index.row] = contact
         self.tableView.reloadData()
     }
 }
+

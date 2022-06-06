@@ -7,60 +7,61 @@
 
 import UIKit
 
-protocol AddContactDelegate {
+protocol AddContactDelegate: AnyObject {
     func addContact(contact: Contact)
 }
 
 class AddContactViewController: UIViewController {
     
-    var delegate: AddContactDelegate?
+    weak var delegate: AddContactDelegate?
     
-    let genders: [String] = ["male", "female"]
+    private let genders: [String] = ["male", "female"]
+    private var selectedGender: String = ""
     
-    let nameTextField: UITextField = {
+    private let picker = UIPickerView()
+    private let saveButton = UIButton()
+    
+    private let nameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Full Name"
         textField.textAlignment = .center
         return textField
     }()
     
-    let numberTextField: UITextField = {
+    private let numberTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Number"
         textField.textAlignment = .center
         return textField
     }()
-    
-    let picker = UIPickerView()
-    var selectedGender: String = ""
-    let saveButton = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         title = "New Contact"
+        selectedGender = genders[0]
 
         configureNameTextField()
         configureNumberTextField()
         configurePickerView()
         configureSaveButton()
-        
-        selectedGender = genders[0]
     }
     
     @objc func saveButtonTapped() {
         guard let fullname = nameTextField.text, nameTextField.hasText else { return }
         guard let number = numberTextField.text, numberTextField.hasText else { return }
+        
         let contact = Contact(name: fullname, number: number, photo: UIImage(named: selectedGender + ".png"), gender: selectedGender)
+        
         delegate?.addContact(contact: contact)
         self.navigationController?.popViewController(animated: true)
     }
     
-    // MARK: - Configuration
+// MARK: - Configure UI Elements
     
-    func configurePickerView() {
-        self.picker.delegate = self
-        self.picker.dataSource = self
+    private func configurePickerView() {
+        picker.delegate = self
+        picker.dataSource = self
         
         view.addSubview(picker)
         
@@ -70,7 +71,7 @@ class AddContactViewController: UIViewController {
         picker.topAnchor.constraint(equalTo: numberTextField.bottomAnchor).isActive = true
     }
     
-    func configureNameTextField() {
+    private func configureNameTextField() {
         view.addSubview(nameTextField)
         
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -79,19 +80,18 @@ class AddContactViewController: UIViewController {
         nameTextField.widthAnchor.constraint(equalToConstant: view.frame.width - 64).isActive = true
         nameTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         nameTextField.textAlignment = .left
-        
         nameTextField.layer.borderWidth = 2
         nameTextField.layer.cornerRadius = 5
         nameTextField.layer.borderColor = UIColor.systemGray5.cgColor
         nameTextField.setLeftPaddingPoints(10)
-   
         nameTextField.becomeFirstResponder()
         nameTextField.clearButtonMode = .whileEditing
     }
     
-    func configureNumberTextField() {
-        view.addSubview(numberTextField)
+    private func configureNumberTextField() {
         numberTextField.delegate = self
+        
+        view.addSubview(numberTextField)
         
         numberTextField.translatesAutoresizingMaskIntoConstraints = false
         numberTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -99,18 +99,17 @@ class AddContactViewController: UIViewController {
         numberTextField.widthAnchor.constraint(equalToConstant: view.frame.width - 64).isActive = true
         numberTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         numberTextField.textAlignment = .left
-        
         numberTextField.layer.borderWidth = 2
         numberTextField.layer.cornerRadius = 5
         numberTextField.layer.borderColor = UIColor.systemGray5.cgColor
         numberTextField.setLeftPaddingPoints(10)
-   
         numberTextField.becomeFirstResponder()
         numberTextField.clearButtonMode = .whileEditing
     }
     
-    func configureSaveButton() {
+    private func configureSaveButton() {
         view.addSubview(saveButton)
+        
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80).isActive = true
         saveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
@@ -123,6 +122,8 @@ class AddContactViewController: UIViewController {
     }
 }
 
+// MARK: - TextField Padding
+
 extension UITextField {
     func setLeftPaddingPoints(_ amount:CGFloat){
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
@@ -130,6 +131,8 @@ extension UITextField {
         self.leftViewMode = .always
     }
 }
+
+// MARK: - PickerView Protocols
 
 extension AddContactViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
