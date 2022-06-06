@@ -60,9 +60,6 @@ extension MovieNewsViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension MovieNewsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        if genres.count > 0 {
-//            return genres.count
-//        }
         return 19
     }
     
@@ -76,7 +73,6 @@ extension MovieNewsViewController: UICollectionViewDataSource {
 }
 
 extension MovieNewsViewController {
-    
     private func loadGenres() {
         networkManager.loadGenres { [weak self] genres in
             self?.genres = genres

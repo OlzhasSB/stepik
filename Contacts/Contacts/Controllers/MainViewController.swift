@@ -29,7 +29,7 @@ class MainViewController: UIViewController {
             emptyLabel.isHidden = true
         }
     }
-    
+     
     @objc private func handleAddContact() {
         let controller = AddContactViewController()
         controller.delegate = self

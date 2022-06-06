@@ -12,6 +12,7 @@ protocol UIdelegate {
 }
 
 class TableSectionCell: UITableViewCell {
+    
     var delegate: UIdelegate?
     
     private var movies: [Movie] = [] {

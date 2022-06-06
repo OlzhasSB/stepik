@@ -88,11 +88,9 @@ extension HomeViewController {
             self?.sectionMovies.append(movies)
         }
         networkManager.loadSoonMovies { [weak self] movies in
-//            self?.soonMovies = movies
             self?.sectionMovies.append(movies)
         }
         networkManager.loadTrendingMovies { [weak self] movies in
-//            self?.trendingMovies = movies
             self?.sectionMovies.append(movies)
         }
     }

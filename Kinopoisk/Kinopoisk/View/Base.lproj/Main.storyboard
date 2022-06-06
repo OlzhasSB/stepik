@@ -197,7 +197,8 @@
                                                     <rect key="frame" x="20" y="11" width="334" height="394"/>
                                                     <gestureRecognizers/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="394" id="pqG-Fu-VO4"/>
+                                                        <constraint firstAttribute="width" constant="192" id="a71-Zi-s5u"/>
+                                                        <constraint firstAttribute="height" constant="500" id="pqG-Fu-VO4"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="layer.CornerRadius" value="10"/>
@@ -213,16 +214,20 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LPW-le-04R">
-                                                    <rect key="frame" x="166.5" y="274" width="41.5" height="21"/>
+                                                    <rect key="frame" x="137" y="334" width="100" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="ecf-uM-aTg"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" systemColor="systemBackgroundColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="★8.9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HvC-oB-sj2">
-                                                    <rect key="frame" x="34" y="22" width="59" height="29"/>
+                                                    <rect key="frame" x="34" y="25" width="59" height="30"/>
                                                     <color key="backgroundColor" red="0.43868863101943162" green="0.78559309182707793" blue="0.38282145445177063" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="59" id="o01-KQ-8AV"/>
+                                                        <constraint firstAttribute="height" constant="30" id="vl0-HE-ufy"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -239,12 +244,10 @@
                                                 <constraint firstItem="5vj-Di-4Hx" firstAttribute="top" secondItem="lmt-fZ-Yew" secondAttribute="topMargin" id="AUP-OS-AfV"/>
                                                 <constraint firstItem="VYB-mK-JYk" firstAttribute="centerX" secondItem="lmt-fZ-Yew" secondAttribute="centerX" id="CGo-Un-hfi"/>
                                                 <constraint firstItem="5vj-Di-4Hx" firstAttribute="bottom" secondItem="lmt-fZ-Yew" secondAttribute="bottomMargin" id="MqH-HN-6BJ"/>
-                                                <constraint firstItem="LPW-le-04R" firstAttribute="top" secondItem="VYB-mK-JYk" secondAttribute="bottom" constant="51" id="PTE-Ma-Xdc"/>
                                                 <constraint firstItem="LPW-le-04R" firstAttribute="centerX" secondItem="lmt-fZ-Yew" secondAttribute="centerX" id="eFQ-dK-FP0"/>
                                                 <constraint firstItem="VYB-mK-JYk" firstAttribute="top" secondItem="lmt-fZ-Yew" secondAttribute="topMargin" constant="182" id="eiU-Ak-O3W"/>
-                                                <constraint firstItem="HvC-oB-sj2" firstAttribute="top" secondItem="lmt-fZ-Yew" secondAttribute="topMargin" constant="11" id="f5q-yb-ocl"/>
-                                                <constraint firstItem="VYB-mK-JYk" firstAttribute="top" secondItem="HvC-oB-sj2" secondAttribute="bottom" constant="142" id="oaF-xD-pJz"/>
-                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="LPW-le-04R" secondAttribute="bottom" constant="50" id="rsr-yO-lY7"/>
+                                                <constraint firstItem="HvC-oB-sj2" firstAttribute="top" secondItem="lmt-fZ-Yew" secondAttribute="topMargin" constant="14" id="f5q-yb-ocl"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="LPW-le-04R" secondAttribute="bottom" constant="50" id="rsr-yO-lY7"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HvC-oB-sj2" secondAttribute="trailing" constant="20" symbolic="YES" id="wD5-fk-nOt"/>
                                                 <constraint firstItem="HvC-oB-sj2" firstAttribute="leading" secondItem="lmt-fZ-Yew" secondAttribute="leadingMargin" constant="14" id="wwF-Cc-etU"/>
                                                 <constraint firstItem="5vj-Di-4Hx" firstAttribute="leading" secondItem="lmt-fZ-Yew" secondAttribute="leadingMargin" id="zkB-IG-WGy"/>
