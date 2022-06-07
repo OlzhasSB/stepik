@@ -18,9 +18,8 @@ class MovieCell: UITableViewCell {
         movieDateLabel.text = movie.releaseDate
         movieRating.text = "★" + String(format: "%.1f", movie.voteAverage!)
         
-        NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: { [weak self] imageData in
-            self?.movieImageView.image = UIImage(data: imageData)
-        })
+        let url = URL(string: movie.posterUrl ?? "")
+        movieImageView.kf.setImage(with: url)
         
         if movie.voteAverage! < 4 {
             movieRating.backgroundColor = UIColor.systemRed

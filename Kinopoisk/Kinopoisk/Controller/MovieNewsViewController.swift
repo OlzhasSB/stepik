@@ -10,7 +10,7 @@ import UIKit
 class MovieNewsViewController: UIViewController {
     @IBOutlet private var myTableView: UITableView!
     @IBOutlet private var genreCollectionView: UICollectionView!
-    private var networkManager = NetworkManager.shared
+    private var networkManager = AlamofireNetworkManager.shared
     
 //    let data = RawData()
     var movies: [Movie] = []

@@ -31,11 +31,11 @@ class NetworkManager {
         var components = urlComponents
         components.path = "/3/genre/movie/list"
 
-        guard let requesUrl = components.url else {
+        guard let requestUrl = components.url else {
             return
         }
         
-        let task = session.dataTask(with: requesUrl) { data, response, error in
+        let task = session.dataTask(with: requestUrl) { data, response, error in
             guard error == nil else {
                 print("Error: error calling GET")
                 return
@@ -113,50 +113,4 @@ class NetworkManager {
         }
         task.resume()
     }
-    
-    var imagesCache = NSCache<NSString, NSData>()
-    
-    func loadImage(with path: String, completion: @escaping (Data) -> Void) {
-        var components = URLComponents()
-        components.scheme = "https"
-        components.host = "image.tmdb.org"
-        components.path = "/t/p/w200\(path)"
-
-        guard let requestUrl = components.url else {
-            return
-        }
-        if let imageData = imagesCache.object(forKey: requestUrl.absoluteString as NSString) {
-            completion(imageData as Data)
-            return
-        }
-        
-        let task = session.downloadTask(with: requestUrl) { localUrl, response, error in
-            guard error == nil else {
-                print("Error: error calling GET")
-                return
-            }
-            guard let localUrl = localUrl else {
-                print("Error: Did not receive data")
-                return
-            }
-            guard let response = response as? HTTPURLResponse, (200..<300) ~= response.statusCode else {
-                print("Error: HTTP request failed")
-                return
-            }
-            
-            do {
-                let imageData = try Data(contentsOf: localUrl)
-                DispatchQueue.main.async {
-                    self.imagesCache.setObject(imageData as NSData, forKey: requestUrl.absoluteString as NSString)
-                    completion(imageData)
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    print("Oops! Error occured")
-                }
-            }
-        }
-        task.resume()
-    }
-    
 }

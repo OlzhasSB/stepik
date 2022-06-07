@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class CollectionSectionCell: UICollectionViewCell {
     @IBOutlet var posterImageView: UIImageView!
@@ -15,9 +16,9 @@ class CollectionSectionCell: UICollectionViewCell {
     @IBOutlet var ratingView: UIView!
     
     func setUp(with movie: Movie, genres: [Genre]) {
-        NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: { [weak self] imageData in
-            self?.posterImageView.image = UIImage(data: imageData)
-        })
+        
+        let url = URL(string: movie.posterUrl ?? "")
+        posterImageView.kf.setImage(with: url)
         
         titleLabel.text = movie.originalTitle
         ratingLabel.text = "★" + String(format: "%.1f", movie.voteAverage!)

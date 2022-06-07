@@ -10,25 +10,10 @@ import UIKit
 class HomeViewController: UIViewController {
     @IBOutlet private var sectionTableView: UITableView!
     
-    private var networkManager = NetworkManager.shared
+    private var networkManager = AlamofireNetworkManager.shared
     private var genres: [Genre] = []
     var sectionNames: [String] = ["Today at the cinema", "Soon at the cinema", "Trending movies"]
     
-//    private var todayMovies: [Movie] = [] {
-//        didSet {
-//            sectionTableView.reloadData()
-//        }
-//    }
-//    private var soonMovies: [Movie] = [] {
-//        didSet {
-//            sectionTableView.reloadData()
-//        }
-//    }
-//    private var trendingMovies: [Movie] = [] {
-//        didSet {
-//            sectionTableView.reloadData()
-//        }
-//    }
     lazy var sectionMovies: [[Movie]] = [] {
         didSet {
             sectionTableView.reloadData()
@@ -50,7 +35,7 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         sectionNames.count
     }
@@ -78,13 +63,13 @@ extension HomeViewController {
     
     private func loadGenres() {
         networkManager.loadGenres { [weak self] genres in
-            self?.genres = genres
+            guard let self = self else { return }
+            self.genres = genres
         }
     }
     
     private func loadMovies() {
         networkManager.loadTodayMovies { [weak self] movies in
-//            self?.todayMovies = movies
             self?.sectionMovies.append(movies)
         }
         networkManager.loadSoonMovies { [weak self] movies in
