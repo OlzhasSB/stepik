@@ -23,33 +23,6 @@ class AlamofireNetworkManager {
         return components
     }()
 
-
-
-
-//    AF.request(.GET, "https://httpbin.org/get").responseJSON {
-//        (Response) -> Void in
-//
-//        if let JSON = response.result.value {
-//            print(JSON)
-//        }
-//    }
-
-        
-    
-    
-   
-    
-//    func test(url: String) {
-//        AF.request(url).responseJSON { response in
-//            print(response)
-//        }
-//    }
-
-
-
-
-
-
     func loadGenres(completion: @escaping ([Genre]) -> Void) {
         var components = urlComponents
         components.path = "/3/genre/movie/list"
@@ -83,12 +56,7 @@ class AlamofireNetworkManager {
                 }
             }
         }
-        
-        
-        
-        
     }
-        
         
     func loadTodayMovies(completion: @escaping ([Movie]) -> Void) {
         loadMovies(path: "/3/movie/now_playing") { movies in
@@ -106,8 +74,6 @@ class AlamofireNetworkManager {
         }
     }
         
-        
-
     private func loadMovies(path: String, completion: @escaping ([Movie]) -> Void) {
         var components = urlComponents
         components.path = path
@@ -115,7 +81,6 @@ class AlamofireNetworkManager {
         guard let requestUrl = components.url else {
             return
         }
-        
         
         AF.request(requestUrl).responseJSON { response in
             
@@ -144,6 +109,4 @@ class AlamofireNetworkManager {
         }
         
     }
-
-
 }
