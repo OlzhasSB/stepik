@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		314E93772859DB0B00FC98CC /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314E93762859DB0B00FC98CC /* CanvasView.swift */; };
 		31667B6228588BE800B7AB2E /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31667B6128588BE800B7AB2E /* ColorCell.swift */; };
 		31F705482858518000729831 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F705472858518000729831 /* AppDelegate.swift */; };
 		31F7054A2858518000729831 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F705492858518000729831 /* SceneDelegate.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		314E93762859DB0B00FC98CC /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		31667B6128588BE800B7AB2E /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 		31F705442858518000729831 /* PaintApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaintApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31F705472858518000729831 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			children = (
 				31667B6028588B9800B7AB2E /* Supporting Files */,
 				31F7054B2858518000729831 /* ViewController.swift */,
+				314E93762859DB0B00FC98CC /* CanvasView.swift */,
 				31667B6128588BE800B7AB2E /* ColorCell.swift */,
 				31F7054D2858518000729831 /* Main.storyboard */,
 				31F705502858518100729831 /* Assets.xcassets */,
@@ -271,6 +274,7 @@
 			files = (
 				31F7054C2858518000729831 /* ViewController.swift in Sources */,
 				31667B6228588BE800B7AB2E /* ColorCell.swift in Sources */,
+				314E93772859DB0B00FC98CC /* CanvasView.swift in Sources */,
 				31F705482858518000729831 /* AppDelegate.swift in Sources */,
 				31F7054A2858518000729831 /* SceneDelegate.swift in Sources */,
 			);
