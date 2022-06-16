@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     var triangleButton = UIButton()
     var lineButton = UIButton()
     var rectangleButton = UIButton()
-    var penButton = UIButton()
+    var pencilButton = UIButton()
     var fillLabel = UILabel()
     var fillSwitch = UISwitch()
     var undoButton = UIButton()
@@ -58,11 +58,23 @@ class ViewController: UIViewController {
     }
     
     @objc func lineButtonTapped() {
-        canvasView.method = "line"
+        canvasView.method = .line
     }
     
-    @objc func penButtonTapped() {
-        canvasView.method = "pen"
+    @objc func pencilButtonTapped() {
+        canvasView.method = .pencil
+    }
+    
+    @objc func circleButtonTapped() {
+        canvasView.method = .circle
+    }
+    
+    @objc func triangleButtonTapped() {
+        canvasView.method = .triangle
+    }
+    
+    @objc func rectangleButtonTapped() {
+        canvasView.method = .rectangle
     }
     
     func configureCanvasView() {
@@ -83,7 +95,7 @@ class ViewController: UIViewController {
         configureRectangleButton()
         configureLineButton()
         configureTriangleButton()
-        configurePenButton()
+        configurePencilButton()
         configureFillLabel()
         stackView.addArrangedSubview(fillSwitch)
         configureColorsCollectionView()
@@ -122,6 +134,8 @@ class ViewController: UIViewController {
         circleButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         circleButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         circleButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        
+        pencilButton.addTarget(self, action: #selector(circleButtonTapped), for: .touchUpInside)
     }
     
     func configureRectangleButton() {
@@ -130,6 +144,8 @@ class ViewController: UIViewController {
         rectangleButton.translatesAutoresizingMaskIntoConstraints = false
         rectangleButton.widthAnchor.constraint(equalTo: circleButton.widthAnchor).isActive = true
         rectangleButton.heightAnchor.constraint(equalTo: circleButton.heightAnchor).isActive = true
+        
+        rectangleButton.addTarget(self, action: #selector(rectangleButtonTapped), for: .touchUpInside)
     }
     
     func configureLineButton() {
@@ -148,16 +164,18 @@ class ViewController: UIViewController {
         triangleButton.translatesAutoresizingMaskIntoConstraints = false
         triangleButton.widthAnchor.constraint(equalTo: circleButton.widthAnchor).isActive = true
         triangleButton.heightAnchor.constraint(equalTo: circleButton.heightAnchor).isActive = true
+        
+        pencilButton.addTarget(self, action: #selector(triangleButtonTapped), for: .touchUpInside)
     }
     
-    func configurePenButton() {
-        stackView.addArrangedSubview(penButton)
-        penButton.setImage(UIImage(named: "pen.png"), for: .normal)
-        penButton.translatesAutoresizingMaskIntoConstraints = false
-        penButton.widthAnchor.constraint(equalTo: circleButton.widthAnchor).isActive = true
-        penButton.heightAnchor.constraint(equalTo: circleButton.heightAnchor).isActive = true
+    func configurePencilButton() {
+        stackView.addArrangedSubview(pencilButton)
+        pencilButton.setImage(UIImage(named: "pen.png"), for: .normal)
+        pencilButton.translatesAutoresizingMaskIntoConstraints = false
+        pencilButton.widthAnchor.constraint(equalTo: circleButton.widthAnchor).isActive = true
+        pencilButton.heightAnchor.constraint(equalTo: circleButton.heightAnchor).isActive = true
         
-        penButton.addTarget(self, action: #selector(penButtonTapped), for: .touchUpInside)
+        pencilButton.addTarget(self, action: #selector(pencilButtonTapped), for: .touchUpInside)
     }
     
     func configureUndoButton() {

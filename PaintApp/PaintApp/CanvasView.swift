@@ -7,74 +7,87 @@
 
 import UIKit
 
+enum DrawMethod {
+    case circle
+    case rectangle
+    case line
+    case triangle
+    case pencil
+}
+
 struct TouchPointAndColor {
-    var color: UIColor?
-//    var width: CGFloat?
-//    var opacity: CGFloat?
-    var points: [CGPoint]?
-    
-    init(color: UIColor, points: [CGPoint]) {
-        self.color = color
-        self.points = points
-    }
+    var color: UIColor
+    var points: [(CGPoint, CGPoint)]
+    var method: DrawMethod
 }
 
 class CanvasView: UIView {
     
     var lines = [TouchPointAndColor]()
     var strokeColor: UIColor = .black
-    var method: String = "pen"
+    var method: DrawMethod = .pencil
     
     override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        
-        if method == "pen" {
-            setNeedsDisplay()
-            guard let context = UIGraphicsGetCurrentContext() else { return }
-            lines.forEach { (line) in
-                for (i,p) in (line.points?.enumerated())! {
-                    if i == 0 {
-                        context.move(to: p)
-                    } else {
-                        context.addLine(to: p)
-                    }
-                    context.setStrokeColor(line.color?.withAlphaComponent(1.0).cgColor ?? UIColor.black.cgColor)
-                    context.setLineWidth(1.0)
+        lines.forEach { line in
+            line.color.setStroke()
+            line.points.forEach { first, last in
+                var path = UIBezierPath()
+                
+                switch method {
+                case .pencil: drawLine(first: first, last: last, path: &path)
+                case .line: drawLine(first: first, last: last, path: &path)
+                case .circle: print("")
+                case .triangle: print("")
+                case .rectangle: drawRectangle(first: first, last: last, path: &path)
                 }
-                context.setLineCap(.round)
-                context.strokePath()
+                
+                path.lineWidth = 2
+                path.stroke()
             }
-        } else if method == "line" {
-            setNeedsDisplay()
-            guard let context = UIGraphicsGetCurrentContext() else { return }
-            context.setLineWidth(1.0)
-            context.setStrokeColor(UIColor.black.cgColor)
-            context.move(to: CGPoint(x: 40, y: 40))
-            context.addLine(to: CGPoint(x: 500, y: 300))
-            context.strokePath()
         }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        lines.append(TouchPointAndColor(color: UIColor(), points: [CGPoint]()))
+        guard var first = touches.first?.location(in: nil) else { return }
+        first.y -= 100
+
+        lines.append(TouchPointAndColor(color: strokeColor, points: [(first, CGPoint())], method: method))
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first?.location(in: nil) else { return }
+        guard var touch = touches.first?.location(in: nil) else { return }
+        touch.y -= 100
         
         guard var lastPoint = lines.popLast() else { return }
-        lastPoint.points?.append(touch)
-        lastPoint.color = strokeColor
+        guard var endPoint = lastPoint.points.popLast() else { return }
+        endPoint.1 = touch
+        lastPoint.points.append(endPoint)
+
+        if lastPoint.method == .pencil {
+            lastPoint.points.append((touch, touch))
+        }
         lines.append(lastPoint)
         setNeedsDisplay()
     }
     
+    func drawLine(first: CGPoint, last: CGPoint, path: inout UIBezierPath) {
+        path.move(to: first)
+        path.addLine(to: last)
+    }
     
+    func drawRectangle(first: CGPoint, last: CGPoint, path: inout UIBezierPath) {
+        path.move(to: first)
+        path.addLine(to: CGPoint(x: last.x, y: first.y))
+        path.addLine(to: last)
+        path.addLine(to: CGPoint(x: first.x, y: last.y))
+        path.addLine(to: first)
+    }
     
     func clearCanvasView() {
         lines.removeAll()
         setNeedsDisplay()
     }
+    
     func undoDraw() {
         if lines.count > 0 {
             lines.removeLast()
