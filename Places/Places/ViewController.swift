@@ -12,85 +12,41 @@ protocol EditLocationDelegate: AnyObject {
     func editLocation(title: String, subtitle: String)
 }
 
-class ViewController: UIViewController, UIGestureRecognizerDelegate, EditLocationDelegate {
-    
-    var selectedLocation: MKAnnotation?
+class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let mapView = MKMapView()
-    let bluredView = UIView()
     let pinsTableView = UITableView()
-    private var modeSegmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl (items: ["Standard","Satellite","Hybrid"])
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.backgroundColor = .clear
-        segmentedControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
-        return segmentedControl
-    }()
+    let modeSegmentedControl = UISegmentedControl (items: ["Standard","Satellite","Hybrid"])
     
     let coordinate = CLLocationCoordinate2D(latitude: 40.728, longitude: -74)
+    var selectedLocation: MKAnnotation?
     var myAnnotations = [MKPointAnnotation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureView()
         configureMapView()
         configureTableView()
+        configureSegmentedControl()
         makeConstraints()
+    }
+
+    func configureView() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(showSavedPins))
         navigationController?.view.backgroundColor = .white
     }
     
-    @objc private func showSavedPins() {
-        view.sendSubviewToBack(mapView)
-        pinsTableView.isHidden.toggle()
-    }
-    
-    func editLocation(title: String, subtitle: String) {
-//        if let index = myAnnotations.firstIndex(of: selectedLocation as! MKPointAnnotation) {
-//            print(index)
-//            myAnnotations[index].title = title
-//            mapView.removeAnnotation(myAnnotations[index])
-//            mapView.addAnnotation(myAnnotations[index])
-//        }
+    func configureSegmentedControl() {
+        modeSegmentedControl.selectedSegmentIndex = 0
+        modeSegmentedControl.backgroundColor = .clear
+        modeSegmentedControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
     }
     
     func configureTableView() {
-        view.addSubview(pinsTableView)
         pinsTableView.isHidden = true
         pinsTableView.dataSource = self
         pinsTableView.delegate = self
         pinsTableView.register(PinCell.self, forCellReuseIdentifier: "pinCell")
-        
-        pinsTableView.translatesAutoresizingMaskIntoConstraints = false
-        pinsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        pinsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        pinsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        pinsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-    }
-    
-    func makeConstraints() {
-        view.addSubview(mapView)
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        mapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        mapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
-        view.addSubview(bluredView)
-        bluredView.translatesAutoresizingMaskIntoConstraints = false
-        bluredView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        bluredView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        bluredView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        bluredView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        let blurEffect = UIBlurEffect(style: .light)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.frame = CGRect(x: 0, y: 800, width: 420, height: 100)
-        view.addSubview(blurView)
-        
-        view.addSubview(modeSegmentedControl)
-        modeSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        modeSegmentedControl.centerYAnchor.constraint(equalTo: bluredView.centerYAnchor).isActive = true
-        modeSegmentedControl.centerXAnchor.constraint(equalTo: bluredView.centerXAnchor).isActive = true
     }
     
     func configureMapView() {
@@ -102,6 +58,43 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, EditLocatio
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.createNewAnnotation(sender:)))
         longPress.minimumPressDuration = 0.5
         mapView.addGestureRecognizer(longPress)
+    }
+    
+    func makeConstraints() {
+        view.addSubview(pinsTableView)
+        pinsTableView.translatesAutoresizingMaskIntoConstraints = false
+        pinsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        pinsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        pinsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        pinsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        view.addSubview(mapView)
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        mapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        mapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        
+        view.addSubview(blurView)
+        blurView.makeConstraints(leading: view.safeAreaLayoutGuide.leadingAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, bottom: view.bottomAnchor, height: 100)
+//        blurView.translatesAutoresizingMaskIntoConstraints = false
+//        blurView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+//        blurView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+//        blurView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+//        blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        view.addSubview(modeSegmentedControl)
+        modeSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        modeSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        modeSegmentedControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+    }
+
+    @objc private func showSavedPins() {
+        view.sendSubviewToBack(mapView)
+        pinsTableView.isHidden.toggle()
     }
     
     @objc func indexChanged(_ sender: UISegmentedControl) {
@@ -145,7 +138,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, EditLocatio
             
             self.present(alert, animated: true, completion: nil)
         }
-//        if sender.state != UIGestureRecognizer.State.began { return }
+        if sender.state != UIGestureRecognizer.State.began { return }
     }
     
     @objc func infoButtonTapped() {
@@ -156,7 +149,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, EditLocatio
 }
 
 // MARK: - MapView delegates
-
 extension ViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
@@ -186,7 +178,6 @@ extension ViewController: MKMapViewDelegate {
 }
 
 // MARK: - TableView delegates
-
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         myAnnotations.count
@@ -210,5 +201,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             pinsTableView.deleteRows(at: [indexPath], with: .fade)
             pinsTableView.reloadData()
         }
+    }
+}
+
+// MARK: - EditLocation delegate
+extension ViewController: EditLocationDelegate {
+    func editLocation(title: String, subtitle: String) {
+//        if let index = myAnnotations.firstIndex(of: selectedLocation as! MKPointAnnotation) {
+//            print(index)
+//            myAnnotations[index].title = title
+//            mapView.removeAnnotation(myAnnotations[index])
+//            mapView.addAnnotation(myAnnotations[index])
+//        }
     }
 }

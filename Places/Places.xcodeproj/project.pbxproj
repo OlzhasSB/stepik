@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3113E49A286188440053CF38 /* PinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3113E499286188440053CF38 /* PinCell.swift */; };
 		3113E49C28619D330053CF38 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3113E49B28619D330053CF38 /* EditViewController.swift */; };
+		3113E4A22861DDAF0053CF38 /* UIView+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3113E4A12861DDAF0053CF38 /* UIView+ext.swift */; };
 		31A04EF62860330C007F822E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A04EF52860330C007F822E /* AppDelegate.swift */; };
 		31A04EF82860330C007F822E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A04EF72860330C007F822E /* SceneDelegate.swift */; };
 		31A04EFA2860330C007F822E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A04EF92860330C007F822E /* ViewController.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		3113E499286188440053CF38 /* PinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCell.swift; sourceTree = "<group>"; };
 		3113E49B28619D330053CF38 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		3113E4A12861DDAF0053CF38 /* UIView+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+ext.swift"; sourceTree = "<group>"; };
 		31A04EF22860330C007F822E /* Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Places.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31A04EF52860330C007F822E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31A04EF72860330C007F822E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +45,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3113E4A02861DD9B0053CF38 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3113E4A12861DDAF0053CF38 /* UIView+ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		31A04EE92860330C007F822E = {
 			isa = PBXGroup;
 			children = (
@@ -62,6 +72,7 @@
 		31A04EF42860330C007F822E /* Places */ = {
 			isa = PBXGroup;
 			children = (
+				3113E4A02861DD9B0053CF38 /* Extensions */,
 				31A04EF52860330C007F822E /* AppDelegate.swift */,
 				31A04EF72860330C007F822E /* SceneDelegate.swift */,
 				31A04EF92860330C007F822E /* ViewController.swift */,
@@ -150,6 +161,7 @@
 				31A04EFA2860330C007F822E /* ViewController.swift in Sources */,
 				31A04EF62860330C007F822E /* AppDelegate.swift in Sources */,
 				3113E49C28619D330053CF38 /* EditViewController.swift in Sources */,
+				3113E4A22861DDAF0053CF38 /* UIView+ext.swift in Sources */,
 				3113E49A286188440053CF38 /* PinCell.swift in Sources */,
 				31A04EF82860330C007F822E /* SceneDelegate.swift in Sources */,
 				31A04F002860330C007F822E /* Places.xcdatamodeld in Sources */,
