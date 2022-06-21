@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3113E49A286188440053CF38 /* PinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3113E499286188440053CF38 /* PinCell.swift */; };
+		3113E49C28619D330053CF38 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3113E49B28619D330053CF38 /* EditViewController.swift */; };
 		31A04EF62860330C007F822E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A04EF52860330C007F822E /* AppDelegate.swift */; };
 		31A04EF82860330C007F822E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A04EF72860330C007F822E /* SceneDelegate.swift */; };
 		31A04EFA2860330C007F822E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A04EF92860330C007F822E /* ViewController.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3113E499286188440053CF38 /* PinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCell.swift; sourceTree = "<group>"; };
+		3113E49B28619D330053CF38 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		31A04EF22860330C007F822E /* Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Places.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31A04EF52860330C007F822E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31A04EF72860330C007F822E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +65,8 @@
 				31A04EF52860330C007F822E /* AppDelegate.swift */,
 				31A04EF72860330C007F822E /* SceneDelegate.swift */,
 				31A04EF92860330C007F822E /* ViewController.swift */,
+				3113E49B28619D330053CF38 /* EditViewController.swift */,
+				3113E499286188440053CF38 /* PinCell.swift */,
 				31A04EFB2860330C007F822E /* Main.storyboard */,
 				31A04F012860330D007F822E /* Assets.xcassets */,
 				31A04F032860330D007F822E /* LaunchScreen.storyboard */,
@@ -143,6 +149,8 @@
 			files = (
 				31A04EFA2860330C007F822E /* ViewController.swift in Sources */,
 				31A04EF62860330C007F822E /* AppDelegate.swift in Sources */,
+				3113E49C28619D330053CF38 /* EditViewController.swift in Sources */,
+				3113E49A286188440053CF38 /* PinCell.swift in Sources */,
 				31A04EF82860330C007F822E /* SceneDelegate.swift in Sources */,
 				31A04F002860330C007F822E /* Places.xcdatamodeld in Sources */,
 			);

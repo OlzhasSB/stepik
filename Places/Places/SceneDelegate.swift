@@ -19,13 +19,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        guard let _ = (scene as? UIWindowScene) else { return }
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-
-        window?.windowScene = windowScene
-        window?.makeKeyAndVisible()
-
-        let viewController = ViewController()
-        let navViewController = UINavigationController(rootViewController: viewController)
-        window?.rootViewController = navViewController
+        let window = UIWindow(windowScene: windowScene)
+        let navCont = UINavigationController()
+        
+        navCont.viewControllers = [ViewController()]
+        window.rootViewController = navCont
+        self.window = window
+        window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
