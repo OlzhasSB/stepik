@@ -12,8 +12,8 @@ class EditViewController: UIViewController {
     
     weak var delegate: EditLocationDelegate?
 
-    let titleTextField = UITextField()
-    let subtitleTextField = UITextField()
+    private let titleTextField = UITextField()
+    private let subtitleTextField = UITextField()
     
     var location: MKAnnotation?
     
@@ -31,7 +31,7 @@ class EditViewController: UIViewController {
         subtitleTextField.text = location?.subtitle!
     }
     
-    @objc func doneEditing() {
+    @objc private func doneEditing() {
         guard let title = titleTextField.text, titleTextField.hasText else { return }
         guard let subtitle = subtitleTextField.text, subtitleTextField.hasText else { return }
 
@@ -39,7 +39,7 @@ class EditViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
-    func configureTextFields() {
+    private func configureTextFields() {
         view.addSubview(titleTextField)
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         titleTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

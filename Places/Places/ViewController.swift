@@ -14,13 +14,20 @@ protocol EditLocationDelegate: AnyObject {
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    let mapView = MKMapView()
-    let pinsTableView = UITableView()
-    let modeSegmentedControl = UISegmentedControl (items: ["Standard","Satellite","Hybrid"])
+    private let mapView = MKMapView()
+    private let pinsTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.isHidden = true
+        tableView.register(PinCell.self, forCellReuseIdentifier: "pinCell")
+        return tableView
+    }()
+    private let modeSegmentedControl = UISegmentedControl (items: ["Standard","Satellite","Hybrid"])
+    private let leftButton = UIButton()
+    private let rightButton = UIButton()
     
-    let coordinate = CLLocationCoordinate2D(latitude: 40.728, longitude: -74)
-    var selectedLocation: MKAnnotation?
-    var myAnnotations = [MKPointAnnotation]()
+    private var selectedLocation: MKAnnotation?
+    private var myAnnotations = [MKPointAnnotation]()
+    private var index = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,73 +38,87 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         makeConstraints()
     }
 
-    func configureView() {
+    private func configureView() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(showSavedPins))
         navigationController?.view.backgroundColor = .white
     }
     
-    func configureSegmentedControl() {
+    private func configureSegmentedControl() {
         modeSegmentedControl.selectedSegmentIndex = 0
         modeSegmentedControl.backgroundColor = .clear
         modeSegmentedControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
     }
     
-    func configureTableView() {
+    private func configureTableView() {
         pinsTableView.isHidden = true
         pinsTableView.dataSource = self
         pinsTableView.delegate = self
         pinsTableView.register(PinCell.self, forCellReuseIdentifier: "pinCell")
     }
     
-    func configureMapView() {
+    private func configureMapView() {
         mapView.delegate = self
         addLongPressGesture()
     }
     
-    func addLongPressGesture() {
+    private func addLongPressGesture() {
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.createNewAnnotation(sender:)))
         longPress.minimumPressDuration = 0.5
         mapView.addGestureRecognizer(longPress)
     }
     
-    func makeConstraints() {
+    private func makeConstraints() {
         view.addSubview(pinsTableView)
-        pinsTableView.translatesAutoresizingMaskIntoConstraints = false
-        pinsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        pinsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        pinsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        pinsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        pinsTableView.makeConstraints(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor)
         
         view.addSubview(mapView)
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        mapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        mapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        mapView.makeConstraints(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor)
         
         let blurEffect = UIBlurEffect(style: .light)
         let blurView = UIVisualEffectView(effect: blurEffect)
         
         view.addSubview(blurView)
         blurView.makeConstraints(leading: view.safeAreaLayoutGuide.leadingAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, bottom: view.bottomAnchor, height: 100)
-//        blurView.translatesAutoresizingMaskIntoConstraints = false
-//        blurView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-//        blurView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-//        blurView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-//        blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         view.addSubview(modeSegmentedControl)
-        modeSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        modeSegmentedControl.makeConstraints(bottom: view.safeAreaLayoutGuide.bottomAnchor)
         modeSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        modeSegmentedControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        blurView.contentView.addSubview(leftButton)
+        leftButton.makeConstraints(top: blurView.topAnchor, leading: blurView.leadingAnchor, trailing: modeSegmentedControl.leadingAnchor, bottom: blurView.bottomAnchor)
+        leftButton.addTarget(self, action: #selector(switchButtonPressed), for: .touchUpInside)
+        
+        blurView.contentView.addSubview(rightButton)
+        rightButton.makeConstraints(top: blurView.topAnchor, leading: modeSegmentedControl.trailingAnchor, trailing: blurView.trailingAnchor, bottom: blurView.bottomAnchor)
+        rightButton.addTarget(self, action: #selector(switchButtonPressed), for: .touchUpInside)
+        rightButton.tag = 1
     }
 
+    @objc private func switchButtonPressed(_ sender: UIButton) {
+        if index < 0 {
+            index = 0
+        } else if index >= myAnnotations.count {
+            index = myAnnotations.count - 1
+        }
+        
+        mapView.setRegion(MKCoordinateRegion(center: myAnnotations[index].coordinate, span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10)), animated: false)
+
+        switch sender.tag {
+        case 0:
+            index -= 1
+        case 1:
+            index += 1
+        default: break
+        }
+        
+    }
+    
     @objc private func showSavedPins() {
         view.sendSubviewToBack(mapView)
         pinsTableView.isHidden.toggle()
     }
     
-    @objc func indexChanged(_ sender: UISegmentedControl) {
+    @objc private func indexChanged(_ sender: UISegmentedControl) {
         if modeSegmentedControl.selectedSegmentIndex == 0 {
             mapView.mapType = .standard
         } else if modeSegmentedControl.selectedSegmentIndex == 1 {
@@ -107,7 +128,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    @objc func createNewAnnotation(sender: UIGestureRecognizer) {
+    @objc private func createNewAnnotation(sender: UIGestureRecognizer) {
         if sender.state != UIGestureRecognizer.State.ended {
             let touchPoint = sender.location(in: mapView)
             let wayCoords = mapView.convert(touchPoint, toCoordinateFrom: mapView)
@@ -141,11 +162,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         if sender.state != UIGestureRecognizer.State.began { return }
     }
     
-    @objc func infoButtonTapped() {
+    @objc private func infoButtonTapped() {
         let editVC = EditViewController()
         editVC.location = selectedLocation
+        editVC.delegate = self
         navigationController?.pushViewController(editVC, animated: true)
     }
+    
 }
 
 // MARK: - MapView delegates
@@ -179,6 +202,7 @@ extension ViewController: MKMapViewDelegate {
 
 // MARK: - TableView delegates
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         myAnnotations.count
     }
@@ -202,16 +226,19 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             pinsTableView.reloadData()
         }
     }
+    
 }
 
 // MARK: - EditLocation delegate
 extension ViewController: EditLocationDelegate {
+    
     func editLocation(title: String, subtitle: String) {
-//        if let index = myAnnotations.firstIndex(of: selectedLocation as! MKPointAnnotation) {
-//            print(index)
-//            myAnnotations[index].title = title
-//            mapView.removeAnnotation(myAnnotations[index])
-//            mapView.addAnnotation(myAnnotations[index])
-//        }
+        if let index = myAnnotations.firstIndex(of: selectedLocation as! MKPointAnnotation) {
+            myAnnotations[index].title = title
+            mapView.removeAnnotation(myAnnotations[index])
+            mapView.addAnnotation(myAnnotations[index])
+            pinsTableView.reloadData()
+        }
     }
+    
 }

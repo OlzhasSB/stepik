@@ -53,6 +53,17 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		317480C42865B03A000A65E2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				31A04EF52860330C007F822E /* AppDelegate.swift */,
+				31A04EF72860330C007F822E /* SceneDelegate.swift */,
+				31A04F012860330D007F822E /* Assets.xcassets */,
+				31A04F032860330D007F822E /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		31A04EE92860330C007F822E = {
 			isa = PBXGroup;
 			children = (
@@ -73,14 +84,11 @@
 			isa = PBXGroup;
 			children = (
 				3113E4A02861DD9B0053CF38 /* Extensions */,
-				31A04EF52860330C007F822E /* AppDelegate.swift */,
-				31A04EF72860330C007F822E /* SceneDelegate.swift */,
+				317480C42865B03A000A65E2 /* Supporting Files */,
 				31A04EF92860330C007F822E /* ViewController.swift */,
 				3113E49B28619D330053CF38 /* EditViewController.swift */,
 				3113E499286188440053CF38 /* PinCell.swift */,
 				31A04EFB2860330C007F822E /* Main.storyboard */,
-				31A04F012860330D007F822E /* Assets.xcassets */,
-				31A04F032860330D007F822E /* LaunchScreen.storyboard */,
 				31A04F062860330D007F822E /* Info.plist */,
 				31A04EFE2860330C007F822E /* Places.xcdatamodeld */,
 			);
